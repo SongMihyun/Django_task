@@ -18,16 +18,22 @@ from django.contrib import admin
 from django.urls import path
 from django.shortcuts import render,HttpResponse
 
-user_list = [
-    {'name':'송미현', 'age':20},
-    {'name':'신지호', 'age':12},
-    {'name':'신지민', 'age':6},
-    {'name':'강아지', 'age':2},
-    {'name':'고양이', 'age':5},
-]
+import fake_db
+
+# user_list = [
+#     {'name':'송미현', 'age':20},
+#     {'name':'신지호', 'age':12},
+#     {'name':'신지민', 'age':6},
+#     {'name':'강아지', 'age':2},
+#     {'name':'고양이', 'age':5},
+# ]
+fake_user_list = fake_db.user_db
+
+user_list=[{'num':num,'user_info':user} for num,user in fake_user_list.items()]
+
 
 def index(request):
-    return HttpResponse('<h1>hello2</h1>')
+    return HttpResponse('<h1>hello~</h1>')
 
 def users(request):
     return render(request,'users.html',{'users':user_list})

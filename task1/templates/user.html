@@ -5,9 +5,13 @@
     <title>User Detail</title>
 </head>
 <body>
-    <h1>{{ user.name}}'s Info.</h1>
+    <h1>{{ user.user_info.이름}}'s Info.</h1>
     <hr>
-    <p>나이 : {{ user.age }}</p>
+    <p>나이 : {{ user.user_info.나이 }}</p>
+    <p>생년월일 : {{ user.user_info.생년월일 }}</p>
+    <p>취미 : {{ user.user_info.취미 }}</p>
+    <p>거주지 : {{ user.user_info.거주지 }}</p>
+    <p>개발경력 : {{ user.user_info.개발경력 }}</p>
 
 </body>
 </html>

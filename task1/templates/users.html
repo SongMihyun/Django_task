@@ -10,7 +10,7 @@
 <body>
     <h1>User List</h1>
     {% for user in users %}
-        <p><a href="/user/{{ forloop.counter }}">No.{{ forloop.counter }} < 이름 : {{ user.name }}, 나이 : {{ user.age }}></a></p>
+        <p>{{ user.num }}. <a href="/user/{{ user.num }}"> {{ user.user_info.이름 }}</a></p>
     {% endfor %}
 </body>
 </html>
