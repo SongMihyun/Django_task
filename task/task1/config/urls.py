@@ -36,13 +36,13 @@ def index(request):
     return HttpResponse('<h1>hello~</h1>')
 
 def users(request):
-    return render(request,'users.html',{'users':user_list})
+    return render(request, '../templates/users.html', {'users':user_list})
 
 def user_info(request,num):
 
     user = user_list[num-1]
 
-    return render(request,'user.html',{'user':user})
+    return render(request, '../templates/user.html', {'user':user})
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),

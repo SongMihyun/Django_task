@@ -44,7 +44,11 @@ OWNER_APPS = [
     'bookmark',
 ]
 
-INSTALLED_APPS = DJANGO_APPS+OWNER_APPS
+THIRD_PARTY_APPS = [
+    'django_extensions'
+]
+
+INSTALLED_APPS = DJANGO_APPS+OWNER_APPS+THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +65,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'task/task1/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-KR'
 
 TIME_ZONE = 'UTC'
 

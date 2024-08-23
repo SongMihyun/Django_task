@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Model = DB의 테이블
 # Field = DB의 칼럼
 
@@ -11,6 +12,10 @@ class Bookmark(models.Model):
     url = models.URLField('URL')
     created_at = models.DateTimeField('생성일시',auto_now_add=True)
     updated_at = models.DateTimeField('수정일시',auto_now = True)
+
+    def __str__(self):
+        return self.name
+
 
     class Meta:
         verbose_name='북마크'

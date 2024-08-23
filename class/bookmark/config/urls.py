@@ -20,6 +20,7 @@ from django.urls import path
 from django.shortcuts import render
 from bookmark import views
 
+
 movie_list = [
     {'title':'파묘','director':'장재현'},
     {'title':'윙카','director':'폴 킹'},
@@ -111,6 +112,8 @@ def gugu(request, x):
     gugudan_list =[f'{x}*{y}={x*y}' for y in range(1,10)]
     return render(request, 'gugu.html', {'gugudans': gugudan_list, 'num':num})
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
@@ -124,5 +127,5 @@ urlpatterns = [
     path('gugus/',gugus),
     path('gugu/<int:x>/',gugu),
     path('bookmark/', views.bookmark_list),
-    path('bookmark/<int:number>', views.bookmark_detail),
+    path('bookmark/<int:pk>/', views.bookmark_detail),
 ]
