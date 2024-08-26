@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>블로그 프로젝트</title>
 </head>
 <body>
-$END$
+    <nav style="display: flex; justify-content: space-between">
+        <div>
+            <a href="{% url 'blog_list' %}">홈</a>
+        </div>
+        <div style="text-align: right">
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="POST" style = "display: inline">
+                    {% csrf_token %}
+                    <button>로그아웃</button>
+                </form>
+            {% else %}
+                <a href="{% url 'signup' %}">회원가입</a>
+                <a href="{% url 'login' %}">로그인</a>
+            {% endif %}
+            <h3>{{ request.user.username }}</h3>{# 요게 잘 나오면 로그인이 잘 된것 #}
+        </div>
+
+    </nav>
+
+    {% block content %}{% endblock %}
+
 </body>
 </html>

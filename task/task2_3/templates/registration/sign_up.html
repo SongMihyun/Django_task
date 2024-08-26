@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+     <style>
+        *{margin: 0; padding: 0;}
+        p{width: 100%;}
+
+
+        .signup_box{width: 300px; height: 300px; border: 1px solid #ccc; border-radius: 10px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);box-sizing: border-box; padding: 20px;}
+        .signup_box label{display: inline-block; width: 100%; }
+        .signup_box button{width: 100%;}
+        #id_usable_password{display: flex;}
+
+        .helptext{display: none;}
+        ul{padding: 0 20px;}
+        ul>li{font-size: 9px;}
+        input{width: 100%}
+        button{margin-top: 20px;}
+
+
+    </style>
 </head>
 <body>
-$END$
+<div class="signup_box">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p><button type="submit">저장</button></p>
+
+    </form>
+</div>
 </body>
 </html>

@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>로그인</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        p{padding: 10px; width: 250px;}
+        .login_box{width: max-content; height: max-content; border: 1px solid #ccc; border-radius: 10px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%)}
+        .login_box label{display: inline-block; width: 100px; }
+        .login_box button{width: 100%;}
+
+    </style>
 </head>
 <body>
-$END$
+<div class="login_box">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p><button type="submit">로그인</button></p>
+    </form>
+    <p><button><a href="{% url 'signup' %}">회원가입</a></button></p>
+</div>
 </body>
 </html>

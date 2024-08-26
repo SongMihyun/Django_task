@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ blog }}</h1>
+    <div style="text-align: right" >
+    {{ blog.author.username }}
+    {% if request.user == blog.author %}
+        <a href="{% url 'blog_update' blog.pk %}">수정</a>
+    {% endif %}
+    </div>
+    <hr>
+    <p>{{ blog.content }}</p>
+    <br>
+    <a href="{% url 'blog_list' %}">목록으로 돌아가기</a>
+
+{% endblock %}
