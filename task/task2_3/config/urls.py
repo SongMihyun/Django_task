@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('todo/',todo_views.todo_list, name= 'todo_list'),
     path('todo/<int:pk>/',todo_views.todo_info , name='todo_info'),
+    path('todo/delete/<int:pk>/',todo_views.todo_delete, name='todo_delete'),
 
     #login
     path('accounts/', include('django.contrib.auth.urls')),#로그아웃시
