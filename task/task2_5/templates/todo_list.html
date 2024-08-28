@@ -148,7 +148,7 @@
         <div class="todo_edit_box">
             <button class="close_btn">&times;</button>
             <div class="form_wrap">
-                <form method="POST">
+                <form action="{% url 'todo:create' %}" method="POST" enctype="multipart/form-data" >
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button>저장</button>

@@ -24,14 +24,17 @@ from users import views as users_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #
+    # path('todo/',todo_views.todo_list, name= 'todo_list'),
+    # path('todo/<int:pk>/',todo_views.todo_info , name='todo_info'),
+    # path('todo/delete/<int:pk>/',todo_views.todo_delete, name='todo_delete'),
+    #
+    # login
+    # path('accounts/', include('django.contrib.auth.urls')),#로그아웃시
+    # path('',users_views.login, name='login'),
+    # path('signup/',users_views.signup, name='signup'),
 
-    path('todo/',todo_views.todo_list, name= 'todo_list'),
-    path('todo/<int:pk>/',todo_views.todo_info , name='todo_info'),
-    path('todo/delete/<int:pk>/',todo_views.todo_delete, name='todo_delete'),
-
-    #login
+    path('todo/',include('todo.urls')),
+    path('',include('users.urls')),
     path('accounts/', include('django.contrib.auth.urls')),#로그아웃시
-    path('',users_views.login, name='login'),
-    path('signup/',users_views.signup, name='signup'),
-
 ]

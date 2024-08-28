@@ -42,7 +42,7 @@ def login(request):
         if next:
             return redirect(next)
 
-        return redirect(reverse('blog_list'))   #리버스 -> 이름으로 path찾음
+        return redirect(reverse('blog:list'))   #리버스 -> 이름으로 path찾음
 
     context = {'form':form}
     return render(request, 'registration/login.html', context)

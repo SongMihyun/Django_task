@@ -27,8 +27,8 @@
                     <button>로그아웃</button>
                 </form>
             {% else %}
-                <a href="{% url 'signup' %}">회원가입</a>
-                <a href="{% url 'login' %}">로그인</a>
+                <a href="{% url 'users:signup' %}">회원가입</a>
+                <a href="{% url 'users:login' %}">로그인</a>
             {% endif %}
         </div>
     </div>
@@ -37,6 +37,9 @@
     <div class="container">
         {% block contents %}
         {% endblock %}
+    </div>
+    <div>
+        {% block js %}{% endblock %}
     </div>
 </main>
 

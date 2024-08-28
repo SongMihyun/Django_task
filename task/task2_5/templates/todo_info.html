@@ -6,7 +6,7 @@
     .date_box{display: flex; width: 100%;align-items: center; justify-content: end;}
     .description_box{height: 70%; border-bottom: 1px solid #87CEEB; padding: 5px;}
 
-    .btn_box{ width: 65px; float: right;}
+    .btn_box{ width: 70px; float: right; cursor: pointer;}
     .btn_box span{ display:inline-block; width: 30px;}
 
     .todo_edit_box{width: 400px; height: 300px; background-color: #f1d99d; position: absolute; top: 50%; left: 200%; transform: translate(-50%,-50%); border-radius: 10px;transition: left 1s ease; box-sizing: border-box; padding: 20px;}
@@ -48,23 +48,30 @@
 
          </div>
          <div class="btn_box">
-             <span class="edit_btn">수정</span>|<a href="{% url 'todo_delete' pk=todo.id %}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+             <span class="edit_btn">수정</span>|
+             <form id="delete_form" action="{% url 'todo:delete' todo.pk %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <span id="delete_btn">삭제</span>
+        </form>
 
          </div>
 {#         숨겨진 수정 박스#}
           <div class="todo_edit_box">
             <button class="close_btn">&times;</button>
             <div class="form_wrap">
-                <form method="POST">
+                <form action="{% url 'todo:update' todo.pk %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ edit_form.as_p }}
+                    {{ form.as_p }}
                     <button>수정</button>
                 </form>
             </div>
         </div>
      </div>
 </div>
-    <script>
+
+{% endblock %}
+{% block js %}
+       <script>
     document.addEventListener('DOMContentLoaded', function() {
         const addBtn = document.querySelector('.edit_btn');
         const editBox = document.querySelector('.todo_edit_box');
@@ -78,5 +85,10 @@
             editBox.classList.remove('show'); // 모달을 화면 밖으로 숨김
         });
     });
+    document.querySelector('#delete_btn').addEventListener('click',function (){
+        if(confirm('삭제하시겠습니까?')){
+            document.querySelector('#delete_form').submit();
+        }
+    })
 </script>
 {% endblock %}

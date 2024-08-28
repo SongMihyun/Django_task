@@ -15,7 +15,7 @@ def login(request):
         if next:
             return redirect(next)
 
-        return redirect(reverse('todo_list'))
+        return redirect(reverse('todo:list'))
 
 
 
@@ -26,6 +26,6 @@ def signup(request):
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect(reverse('todo_list'))
+        return redirect(reverse('todo:list'))
     context = {'form':form}
     return render(request, 'registration/sign_up.html', context)

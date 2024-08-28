@@ -34,7 +34,10 @@ def blog_list(request):
     # visits = int(request.COOKIES.get('visits', 0)) + 1
     # request.session['count'] = request.session.get('count', 0) + 1
 
-    context = {'page_object': page_object}
+    context = {
+        'object_list': page_object.object_list,
+        'page_obj': page_object
+    }
 
     response = render(request, 'blog_list.html', context)
     # response.set_cookie('visits', visits)
@@ -43,7 +46,11 @@ def blog_list(request):
 
 def blog_detail(request, pk):
     blog = Blog.objects.get(id=pk)
-    return render(request,'blog.html', {'blog':blog})
+    context = {
+        'blog': blog,
+        'test': 'TEST'
+               }
+    return render(request,'blog.html', context)
 
 # 블로그 생성페이지
 @login_required()   #셋팅즈에 내가 설정해놓은 LOGIN_URL 로 자동으로 가짐
@@ -56,7 +63,7 @@ def blog_create(request):
             blog=form.save(commit=False) # 디비에 저장은 안되고 폼만 만들어놓은것
             blog.author = request.user
             blog.save()
-            return redirect(reverse('blog_detail', kwargs={'pk': blog.pk}))
+            return redirect(reverse('blog:detail', kwargs={'pk': blog.pk}))
 
     else:
         form = BlogForm()
@@ -72,7 +79,7 @@ def blog_update(request, pk):
     form = BlogForm(request.POST or None, instance=blog)
     if form.is_valid():
         blog = form.save()
-        return redirect(reverse('blog_detail', kwargs={'pk': blog.pk}))
+        return redirect(reverse('blog:detail', kwargs={'pk': blog.pk}))
 
 
     context = {'blog':blog, 'form':form}
@@ -85,6 +92,6 @@ def blog_delete(request, pk):
     #     raise Http404
     blog = get_object_or_404(Blog, pk=pk, author=request.user)
     blog.delete()
-    return redirect(reverse('blog_list'))
+    return redirect(reverse('blog:list'))
 
 
