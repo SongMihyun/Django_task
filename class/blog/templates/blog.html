@@ -16,6 +16,22 @@
     <hr>
     <p>{{ blog.content }}</p>
     <br>
+    <hr>
+    {% if request.user.is_authenticated %}
+        <form method="post" action="{% url 'blog:comment_create' blog.pk %}">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button>작성</button>
+        </form>
+    {% endif %}
+    <hr>
+
+    <div id="comment_wrapper">
+    {% for comment in object_list %}
+        <p>{{ comment.created_at|date:'Y-m-d H:i' }}|{{ comment.content }} - {{ comment.author.username }}</p>
+    {% endfor %}
+    </div>
+     {% include 'pagination.html' with fragment='comment_wrapper' %}
     <a href="{% url 'blog:list' %}">목록으로 돌아가기</a>
 
 {% endblock %}

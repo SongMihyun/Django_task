@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>블로그 {{ sub_title }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>{% if btn_name %}{{ btn_name }}{% else %}저장{% endif %}</button>
+    </form>
+{% endblock %}
+{% block js %}
+    {% include 'form-js.html' %}
+{% endblock %}

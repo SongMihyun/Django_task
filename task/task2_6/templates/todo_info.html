@@ -1,0 +1,105 @@
+<style>
+    .content_wrap{width: 90%; height: 90%;margin: 0 auto; box-sizing: border-box; padding: 10px 0;}
+    .content_box{width: 100%; height: 100%; border-radius: 10px; box-sizing: border-box; padding: 10px; border: 1px solid #87CEEB;}
+    .todo_box{height: 60%;}
+    .comment_box{height: 40%; border: 0;}
+
+    .title_wrap{display: flex; width: 100%; flex-wrap: nowrap; justify-content: space-between;border-bottom: 3px solid #87CEEB; }
+    .title_box{ padding: 5px;display: flex; width: 100%; align-items: center; justify-content: start;}
+    .date_box{display: flex; width: 100%;align-items: center; justify-content: end;}
+    .description_box{height: 70%; border-bottom: 1px solid #87CEEB; padding: 5px;}
+    .todo_author{ width: 300px; float: left; display: block; padding: 10px 0;}
+    .btn_box{ width: 70px; float: right; cursor: pointer; display: block; padding: 10px; }
+    .btn_box span{ display:inline-block; width: 30px;}
+
+    .todo_edit_box{width: 400px; height: 300px; background-color: #f1d99d; position: absolute; top: 50%; left: 200%; transform: translate(-50%,-50%); border-radius: 10px;transition: left 1s ease; box-sizing: border-box; padding: 20px;}
+    /* 모달이 가운데로 올 때 */
+    .todo_edit_box.show {left: 50%;}
+    label{display: block;}
+    input{width: 350px;}
+    #id_description{width:350px; height: 100px; }
+    .form_wrap{width:350px; margin: 0 auto;}
+    .close_btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .edit_btn, .delete_btn{cursor:pointer;}
+
+    {#댓글 삭제 버튼#}
+
+    .comment_del_btn{color: #f00; font-weight: bold; margin-left: 10px;
+        border: 0; background-color: #fff; padding: 0 10px; cursor: pointer; }
+
+
+</style>
+{% extends 'base.html' %}
+{% block contents %}
+<div class="todo_wrap content_wrap">
+    <div class="todo_box content_box">
+         <div class="title_wrap">
+             <div class="title_box"><h2>{{ todo.title }}</h2></div>
+             <div class="date_box">
+                 {{ todo.start_date|date:'m.d' }}~{{ todo.end_date|date:'m.d' }}
+             </div>
+         </div>
+         <div class="description_box">
+             {{ todo.description }}
+         </div>
+         <div class="create_at">
+            {{ todo.created_at|date:"y.m.d - H:i" }}
+         </div>
+         <div class="todo_author">작성자 : {{ todo.author }}</div>
+         <div class="btn_box">
+             <span class="edit_btn">수정</span>|
+             <form id="delete_form" action="{% url 'todo:delete' todo.pk %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <span id="delete_btn">삭제</span>
+        </form>
+
+         </div>
+{#         숨겨진 수정 박스#}
+          <div class="todo_edit_box">
+            <button class="close_btn">&times;</button>
+            <div class="form_wrap">
+                <form action="{% url 'todo:update' todo.pk %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ todo.as_p }}
+                    <button>수정</button>
+                </form>
+            </div>
+        </div>
+     </div>
+    <div class="comment_box content_box">
+        {% include 'comment.html' %}
+
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+       <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addBtn = document.querySelector('.edit_btn');
+        const editBox = document.querySelector('.todo_edit_box');
+        const closeBtn = document.querySelector('.close_btn');
+
+        addBtn.addEventListener('click', function() {
+            editBox.classList.add('show'); // 모달을 가운데로 이동시킴
+        });
+
+        closeBtn.addEventListener('click', function() {
+            editBox.classList.remove('show'); // 모달을 화면 밖으로 숨김
+        });
+    });
+    document.querySelector('#delete_btn').addEventListener('click',function (){
+        if(confirm('삭제하시겠습니까?')){
+            document.querySelector('#delete_form').submit();
+        }
+    })
+</script>
+{% endblock %}

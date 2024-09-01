@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 
-from bookmark.models import Bookmark
+from .models import Bookmark
 
 
 def bookmark_list(request):

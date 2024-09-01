@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5d#*0#cfg-33$q_g+d7+4n4pmaop*t$cx+nm9hk(giux%vfjug'
+SECRET_KEY = 'django-insecure-hn3p=j+2tby6f@d!coxqn(7h#krp2cq!qg#q!+69#v8^f%4!*8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,25 +32,20 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-
-DJANGO_APPS = [
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    # myapp
+    'todo',
+    'users',
 
-OWNER_APPS = [
-    'bookmark',
+    # third_party_apps
+    'django_extensions',
 ]
-
-THIRD_PARTY_APPS = [
-    'django_extensions'
-]
-
-INSTALLED_APPS = DJANGO_APPS+OWNER_APPS+THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,8 +124,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_DIR = BASE_DIR / 'static'
+
+STATICFILES_DIRS =[
+    # STATIC_DIR / 'static',
+    STATIC_DIR
+]
+STATIC_ROOT = BASE_DIR / 'static_root'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# login
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/'

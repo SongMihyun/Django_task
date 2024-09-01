@@ -1,0 +1,29 @@
+
+<div class="comment_create">
+    <form action="{% url 'todo:comment_create' todo.pk %}" method="post" style="display: flex;flex-wrap: wrap;justify-content: space-between; margin-bottom: 5px; width: 100%; align-items: center; border-bottom: 1px solid #ccc;">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button style="display: flex; width: 15%; justify-content: center;">저장</button>
+    </form>
+</div>
+<div class="comment_list">
+    {% for comment in object_list %}
+        <ul>
+            <li>
+                <form action="{% url 'todo:comment_delete' comment.id %}?page={{ page_obj.number }}" method="post" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between;" >
+                    {% csrf_token %}
+                    <p style="width: 15%; display: flex;">{{ comment.author }}</p>
+                    <p style="width: calc(100% - 15% - 130px); display: flex;">{{ comment.content }}
+                        {% if comment.author != request.user %}
+                            <button type="submit" class="comment_del_btn" style="display:none;">X</button>
+                        {% else %}
+                            <button type="submit" class="comment_del_btn" style="display: inline-block">X</button>
+                        {% endif %}
+                    </p>
+                    <p style="width: 130px; display: flex;">{{ comment.created_at|date:'Y.m.d H:i' }}</p>
+                </form>
+            </li>
+        </ul>
+    {% endfor %}
+    {% include 'pagination.html' %}
+</div>
